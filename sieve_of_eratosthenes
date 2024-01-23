@@ -1,0 +1,19 @@
+         // this sieve of eratosthenes is used to calculate the calculate the prime numbers in the best possible way.
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void seive (ll n, vl &primes) {
+    for (ll i  = 2 ; i * i <= n ; i++) {
+        if (primes[i] == 0) continue;
+        for (ll j = i * i ; j <= n ; j += i) primes[j] = i;
+    }
+}
+int main() {
+    
+    ios_base::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+
+   	seive();
+   	
+}
