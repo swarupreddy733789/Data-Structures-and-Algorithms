@@ -1,0 +1,45 @@
+                                                             // square root decomposition
+                      // the question is we will be given and we have to find the sum of the array with given range.
+                      // in approach we consider the sum of sqrt elements into another vector, then we will start iterating from l to r.
+                      // here if l is at startting of the sqrt part and r is at the ending of the sqrt part then we add the precomputed sum move forward sqrt(n) steps (or) else we iterate linearly.
+#include <bits/stdc++.h>
+using namespace std;
+
+void solve() {
+    ll n, len, q;
+    cin >> n;
+    len = sqrt(n) + 1;
+    vector<int>vct(n), decom(len);
+    rep(i, 0, n) cin >> vct[i];
+    for (int i = 0 ; i < n ; i++) decom[i / len] += vct[i];
+    cin >> q;
+    while (q--) {
+        int l, r, sum = 0;
+        cin >> l >> r;
+        l--, r--;
+        for (int i = l ; i <= r ; ) {
+            if (i % len == 0 && i + len - 1 <= r) {
+                sum += decom[i / len];
+                i += len;
+            }
+            else {
+                sum += vct[i];
+                i++;
+            }
+        }
+        cout << sum << endl;
+    }
+}
+
+int main() {
+    
+    ios_base::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+    // ll t;
+    // cin >> t;
+    // rep(i, 0, t) {
+        
+    	//cout << "Case #" << i << ": ";
+   		solve();
+   	// }
+}
