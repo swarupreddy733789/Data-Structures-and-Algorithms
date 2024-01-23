@@ -1,0 +1,20 @@
+            // this method is used to find hcf of large numbers.
+           // acording to euclidean hcf of (a, b) = (a, b - a).applying this condition multiple times we can reduce large numbers to small number.
+           // we can optimize the above iterations by simply taking hcf(a, b) = hcf(b, a % b).This reduces the number of iterations.
+
+#include <bits/stdc++.h>
+using namespace std;
+
+ll gcd (ll a, ll b) {
+    if (b == 0) return a;
+    return gcd(b, a % b);
+}
+
+int main() {
+    
+    ios_base::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+
+    solve();
+
+}
