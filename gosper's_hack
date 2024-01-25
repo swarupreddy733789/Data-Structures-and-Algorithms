@@ -1,0 +1,32 @@
+                                               //this gosper's hack is used in bit manipulation
+                            // This hack is used to get all possible k-set bit binary numbers from n bit number
+
+#include <bits/stdc++.h>
+using namespace std;
+vectotr<int>ghack;
+void GospersHack(int n, int k)
+{
+    int set = (1 << k) - 1;
+    int limit = (1 << n);
+    while (set < limit)
+    {
+        DoStuff(set);
+        ghack.push_back(set);
+        // Gosper's hack:
+        int c = set & - set;
+        int r = set + c;
+        set = (((r ^ set) >> 2) / c) | r;
+    }
+}
+void solve() {
+  int n , k
+  cin >> n >> k;
+  GospersHack(n, k);
+}
+int main() {
+    
+    ios_base::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+   		solve();
+   	}
+}
