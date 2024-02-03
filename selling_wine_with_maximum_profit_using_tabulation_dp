@@ -1,0 +1,49 @@
+ /*
+ Given n wines in a row, with integers denoting the cost of each wine respectively. Each year you can sale the first or the last wine in a row. However, the price of wines increases over time.
+ Let the initial profits from the wines be P1, P2, P3…Pn. In the Yth year, the profit from the ith wine will be Y*Pi. For each year, your task is to print “beg” or “end” denoting whether 
+ first or last wine should be sold. Also, calculate the maximum profit from all the wines. 
+ */
+ #include<bits/stdc++.h>
+ using namespace std;
+                             // given array
+                             //   5
+                             //    2 4 6 2 5
+
+void solve() {
+    ll n;
+    cin >> n;
+    vi vct(n);
+    rep(i, 0, n)  cin >> vct[i];
+    vvi dp(n, vi(n, 0));
+    for (int i = 0; i < n; i++)   dp[i][i] = n * vct[i];
+                                /*  here these are the last picks that we can take
+                                      10 0 0 0 0   --> if we take 0-index as last pick
+                                      0 20 0 0 0   --> if we take 1-index as last pick
+                                      0 0 30 0 0   --> if we take 2-index as last pick
+                                      0 0 0 10 0   --> if we take 3-index as last pick
+                                      0 0 0 0 25   --> if we take 4-index as last pick
+                                */
+    for (int i = n - 1; i >= 0; i--) {
+        for (int j = i + 1 ; j < n; j++) {
+            int x = dp[i][j] = dp[i][j - 1] + ((n - (j - i)) * vct[j]);
+            int y =dp[i][j] = dp[i + 1][j] + ((n - (j - i)) * vct[i]);
+            dp[i][j] = max(x, y);
+        }
+    }
+
+                              /*   final table
+                              10 28 52 56 64 
+                              0 20 46 52 62 
+                              0 0 30 38 53 
+                              0 0 0 10 33 
+                              0 0 0 0 25 
+                              */
+                              
+    cout << dp[0][n - 1] << endl;
+}
+int main() {
+    
+    ios_base::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+   		solve();
+}
