@@ -1,0 +1,41 @@
+int n = txt.size(), m = pat.size(), j = 0;
+            vector<int>lps(m, 0), vct;
+                                                          //LPS table creation
+            for (int i = 1 ; i < m ;) {
+                if (pat[i] == pat[j]) {
+                    lps[i] = j + 1;
+                    j++;
+                    i++;
+                }
+                else {
+                    if(j == 0){
+                        lps[i] = 0;
+                        i++;
+                    }
+                    else{
+                        j = lps[j-1];
+                    }
+                }
+            }
+                                                     // matching both strings
+            j = 0;
+            for (int i = 0 ; i < n ;) {
+                
+                if (txt[i] == pat[j]){
+                    j++;
+                    i++;
+                }
+                else {
+                    j = lps[j-1];
+                    if (txt[i] == pat[j]){
+                        j++;
+                    }
+                    i++;
+                }
+                if (j == m) {
+                    j = lps[j - 1];
+                    vct.emplace_back(i - m + 1);
+                }
+            }
+            if (j == m) vct.emplace_back(n - m + 1);
+            return vct;
