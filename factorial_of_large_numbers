@@ -1,0 +1,24 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+        int dig = 1, x = 0;
+        vector<int>vct(2570, 0), res;
+        vct[0] = 1;
+        for (int i = 1 ; i <= n ; i++) {
+            int carry = 0, j;
+            for (j = 0 ; j < 2570 ; j++) {
+                int p = (i * vct[j]) + carry;
+                vct[j] = p % 10;
+                carry = p / 10;
+            }
+            dig = max(dig, j);
+            // for (int i = 0 ; i < dig  ; i++) cout << vct[i] << " ";
+            // cout << endl;
+        }
+        reverse(vct.begin(), vct.end());
+        for (int i = 0 ; i < 2570 ; i++) {
+            if (vct[i] != 0) x = 1;
+            if (x) res.push_back(vct[i]);
+        }
+        for (int i = 0 ; i < res.size() ; i++) cout << res[i];
+}
