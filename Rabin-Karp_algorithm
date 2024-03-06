@@ -1,1 +1,41 @@
- 
+vector <int> search(string pattern, string text)
+        {
+            //code here.
+            vector<int>vct;
+            int base = 256, mod = INT_MAX, pat = 0, txt = 0, power = 1, m = pattern.size(), n = text.size();
+            // calculate the value of pow(base, m - 1) % mod
+            // This is used as hash value
+            for (int i = 0; i < m - 1; i++) power = (power * base) % mod;
+            // check the matching for the first m length in the text given
+            for (int i = 0; i < m; i++) {
+                pat = (pat * base + pattern[i]) % mod;
+                txt = (txt * base + text[i]) % mod;
+            }
+            // Now we have to slide the pattern over the given text
+            for (int i = 0; i <= n - m; i++) {
+                // if both the hash values are equal the check for the characters in text and pattern
+                if (pat == txt) {
+                    int flag = 1;
+                    for (int j = 0; j < m; j++) {
+                        if (text[i + j] != pattern[j]) {
+                            flag = 0;
+                            break;
+                        }
+                    }
+                    if (flag) vct.push_back(i + 1);
+                }
+                /*
+                   text = a b c d e
+                pattern = a b c d
+                here the hash value of pattern will  be (a * x^3 + b * x^2 + c * x^1 + d * x^0)
+                so while moving to next character we remove the value of (a * x^3)
+                now, we have hash value as -> (b * x^2 + c * x^1 + d * x^0)
+                here multiply with x and add next character -> (b * x^3 + c * x^2 + d * x^1) + e;
+                */
+                if (i < n - m) {
+                    txt = (base * (txt - text[i] * power) + text[i + m]) % mod;
+                    if (txt < 0) txt += mod;
+                }
+            }
+            return vct;
+        }
