@@ -1,0 +1,62 @@
+/* Swarup Reddy
+12.03.2024
+*/
+
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define pb push_back
+#define pf push_front
+#define imax INT_MAX
+#define imin INT_MIN
+#define rep(i, a, n) for (int i = a ; i < n ; i++)
+ 
+void Takeinput() {
+	#ifndef SWARUP
+	freopen("input.txt", "r", stdin);
+	freopen("print.txt", "w", stdout);
+	#endif
+}
+
+ll fib[1000];
+
+int max_num(ll n) {
+	ll i;
+	fib[0] = 1, fib[1] = 2;
+	for (i = 2; ; i++) {
+		fib[i] = fib[i - 1] + fib[i - 2];
+		if (fib[i] > n) break;
+	}
+	return i - 1;
+}
+
+void solve() {
+	ll n;
+	cin >> n;
+	int ind = max_num(n);
+	string s;
+	s += '1';
+	while (n) {
+		s += '1';
+		n -= fib[ind];
+		ind--;
+		while (ind >= 0 && fib[ind] > n) {
+			s += '0';
+			ind--;
+		}
+	}
+	reverse(s.begin(), s.end());
+	cout << s;
+}
+ 
+int main() {
+	// Takeinput();
+    ios_base::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+    // int t;
+    // cin >> t;
+    // for (int i = 1 ; i <= t ; i++) {
+    	//cout << "Case #" << i << ": ";
+   		solve();
+   	// }
+}
