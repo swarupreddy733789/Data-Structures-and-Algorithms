@@ -1,0 +1,19 @@
+     -- // According to this algorithm we can always say that a * x + b * y = gcd(a, b).
+     -- // So when a = gcd(a, b) then b = 0 (AT FINAL STEP) .Here x = 1, y = 0.
+     -- // From here when we go back in recursion x = y1, y = x1 - y1 * (int)(a / b). Here x1 and y1 are values of x, y from previous step.
+
+
+ll gcd (ll a, ll b, int &x, int &y) {
+    if (b == 0) {
+        x = 1;
+        y = 0;
+        return a;
+    }
+    int x1, y1;
+    int d = gcd(b, a % b, x1, y1);
+    x = y1;
+    y = x1 - y1 * (int)(a / b);
+    return d;
+}
+
+-- here if print x, y values after recursion we can can form the eaquation.
